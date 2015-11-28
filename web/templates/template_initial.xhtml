@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Concessionária</title>
+    </h:head>
+    <h:body>
+        <div id="menu">
+            <p:menubar>
+                <p:submenu label="Cadastros" icon="ui-icon-document">                    
+                    <p:menuitem value="Marcas" url="/cadastros/marcas/index.jsf" />
+                    <p:separator />
+                    <p:menuitem value="Modelos" url="#" />
+                </p:submenu>
+            </p:menubar>
+        </div>
+        <ui:insert name="menu">
+
+        </ui:insert>
+        <div id="container">
+            <ui:insert name="content">
+
+            </ui:insert>
+        </div>
+    </h:body>
+</html>
+

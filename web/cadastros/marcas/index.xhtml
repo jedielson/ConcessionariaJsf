@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <ui:composition template="../../templates/template_initial.xhtml">
+        
+        <h:form>
+            <p:growl globalOnly="true" autoUpdate="true"/>
+            <p:panel header="Cadastre a Marca dos Veículos">
+                <h:panelGrid columns="3">
+                    <p:outputLabel for="textBoxNome" value="Nome:"/>
+                    <p:inputText id="textBoxNome" 
+                                 value="#{marcaController.marca.nome}"
+                                 required="true"
+                                 requiredMessage="O nome é obrigatório"/>                    
+                    <p:message for="textBoxNome"/>
+                    
+                    <p:outputLabel for="textBoxNome" value="Nome:"/>
+                    <p:inputTextarea id="textBoxNome" 
+                                 value="#{marcaController.marca.descricao}"
+                                 required="true"
+                                 requiredMessage="O nome é obrigatório"
+                                 cols="10"
+                                 rows="5"/>
+                    <p:message for="textBoxNome"/>
+                </h:panelGrid>
+                <f:facet name="button_bar">
+                    <p:commandButton value="Cadastrar"/>
+                </f:facet>                
+            </p:panel>            
+        </h:form>       
+        
+    </ui:composition>
+</html>
+
