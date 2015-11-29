@@ -1,12 +1,14 @@
 package com.jedi.concessionaria.domain.entities;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 /**
  * Esta classe define uma marca.
@@ -28,6 +30,9 @@ public class Marca implements Serializable {
     
     @Column(length = 100, nullable = false)
     private String descricao;
+    
+    @OneToMany(targetEntity = Modelo.class)
+    private List<Modelo> modelos;
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Construtor">
@@ -52,6 +57,10 @@ public class Marca implements Serializable {
     public String getDescricao() {
         return descricao;
     }
+
+    public List<Modelo> getModelos() {
+        return modelos;
+    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Setter">
@@ -65,6 +74,10 @@ public class Marca implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public void setModelos(List<Modelo> modelos) {
+        this.modelos = modelos;
     }
     //</editor-fold>
 
@@ -88,10 +101,7 @@ public class Marca implements Serializable {
         if (!Objects.equals(this.marcaId, other.marcaId)) {
             return false;
         }
-        if (!Objects.equals(this.nome, other.nome)) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.nome, other.nome);
     }
 
     //</editor-fold>
