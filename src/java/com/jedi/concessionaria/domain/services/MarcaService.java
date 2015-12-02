@@ -5,25 +5,32 @@
  */
 package com.jedi.concessionaria.domain.services;
 
+import javax.annotation.PostConstruct;
+import javax.ejb.EJB;
+import javax.ejb.Local;
+import javax.ejb.Stateless;
+
 import com.jedi.concessionaria.domain.entities.Marca;
+import com.jedi.concessionaria.domain.interfaces.repository.IMarcaRepository;
 import com.jedi.concessionaria.domain.interfaces.services.IMarcaService;
 import com.jedi.concessionaria.domain.services.common.ServiceBase;
-import com.jedi.concessionaria.infra.data.repository.MarcaRepository;
-import javax.ejb.EJB;
-import javax.ejb.Stateless;
 
 /**
  *
  * @author Jedielson Nakonieczni
  */
 @Stateless
+@Local(IMarcaService.class)
 public class MarcaService extends ServiceBase<Marca> implements IMarcaService {
 
-    @EJB
-    private MarcaRepository repository;
+	@EJB
+	private IMarcaRepository repository;
 
-    public MarcaService() {
-        //super(new MarcaRepository());
-        this.setRepositoryBase(repository);
-    }
+	public MarcaService() {
+	}
+
+	@PostConstruct
+	public void init() {
+		this.setRepositoryBase(repository);
+	}
 }

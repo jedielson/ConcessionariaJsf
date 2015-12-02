@@ -1,14 +1,12 @@
 package com.jedi.concessionaria.domain.interfaces.repository.common;
 
 import java.util.List;
-import javax.ejb.Local;
 
 /**
  *
  * @author Jedielson Nakonieczni
  * @param <TEntity> O tipo do repositório
  */
-@Local
 public interface IRepositoryBase<TEntity> {
 
     /**

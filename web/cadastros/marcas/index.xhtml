@@ -1,40 +1,35 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"      
+<html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="../../templates/template_initial.xhtml">
         <ui:define name="content">
 
-            <h:form>
-                <p:growl globalOnly="true" autoUpdate="true"/>
+            <h:form>                
+                <p:growl globalOnly="true" autoUpdate="true" />
                 <p:panel header="Cadastre a Marca dos Veículos">
                     <h:panelGrid columns="3">
-                        <p:outputLabel for="textBoxNome" value="Nome:"/>
-                        <p:inputText id="textBoxNome" 
-                                     value="#{marcaController.marca.nome}"
-                                     required="true"
-                                     requiredMessage="O nome é obrigatório"/>                    
-                        <p:message for="textBoxNome"/>
+                        <p:outputLabel for="textBoxNome" value="Nome:" />
+                        <p:inputText id="textBoxNome" value="#{marcaController.marca.nome}"
+                                     required="true" requiredMessage="O nome é obrigatório" />
+                        <p:message for="textBoxNome" />
 
-                        <p:outputLabel for="textAreaDescricao" value="Descrição:"/>
-                        <p:inputTextarea id="textAreaDescricao" 
-                                         value="#{marcaController.marca.descricao}"
-                                         required="true"
-                                         requiredMessage="O nome é obrigatório"
-                                         cols="22"
-                                         rows="5"/>
-                        <p:message for="textAreaDescricao"/>
+                        <p:outputLabel for="textAreaDescricao" value="Descrição:" />
+                        <p:inputTextarea id="textAreaDescricao"
+                                         value="#{marcaController.marca.descricao}" required="true"
+                                         requiredMessage="O nome é obrigatório" cols="22" rows="5" />
+                        <p:message for="textAreaDescricao" />
                     </h:panelGrid>
                     <f:facet name="footer">
                         <p:commandButton value="Cadastrar"
-                                         action="#{marcaController.salvar()}"/>
-                    </f:facet>                
-                </p:panel>            
-            </h:form>       
+                                         action="#{marcaController.salvar()}" update="@form" />
+                    </f:facet>
+                </p:panel>
+            </h:form>
         </ui:define>
 
     </ui:composition>

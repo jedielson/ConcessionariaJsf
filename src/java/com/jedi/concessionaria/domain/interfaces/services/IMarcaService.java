@@ -7,13 +7,11 @@ package com.jedi.concessionaria.domain.interfaces.services;
 
 import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.services.common.IServiceBase;
-import javax.ejb.Local;
 
 /**
  *
  * @author AS
  */
-@Local
-public interface IMarcaService extends IServiceBase<Marca>{
-    
+public interface IMarcaService extends IServiceBase<Marca> {
+
 }

@@ -6,14 +6,12 @@
 package com.jedi.concessionaria.application.interfaces.common;
 
 import java.util.List;
-import javax.ejb.Local;
 
 /**
  *
  * @author AS
  * @param <TEntity> O tipo base do serviço
  */
-@Local
 public interface IAppServiceBase<TEntity> {
     
     /**
