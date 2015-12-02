@@ -31,7 +31,7 @@ public class Marca implements Serializable {
     @Column(length = 100, nullable = false)
     private String descricao;
     
-    @OneToMany(targetEntity = Modelo.class)
+    @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos;
     //</editor-fold>
 

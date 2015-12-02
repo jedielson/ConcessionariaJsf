@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -36,6 +37,7 @@ public class Carro implements Serializable {
     private String chassi;
     
     @ManyToOne(optional = false)
+    @JoinColumn(name = "modeloId", nullable = false)
     private Modelo modelo;
     //</editor-fold>
 

@@ -18,6 +18,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -51,9 +52,10 @@ public class Modelo implements Serializable {
     private ModeloCombustivel combustivel;
 
     @ManyToOne(optional = false)
+    @JoinColumn(name = "marcaId", nullable = false)
     private Marca marca;
     
-    @OneToMany(targetEntity = Carro.class)
+    @OneToMany(mappedBy = "modelo")
     private List<Carro> carros;
     //</editor-fold>
 
