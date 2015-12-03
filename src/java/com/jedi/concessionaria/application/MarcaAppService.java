@@ -14,6 +14,7 @@ import com.jedi.concessionaria.application.common.AppServiceBase;
 import com.jedi.concessionaria.application.interfaces.IMarcaAppService;
 import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.services.IMarcaService;
+import java.util.List;
 
 /**
  *
@@ -32,6 +33,11 @@ public class MarcaAppService extends AppServiceBase<Marca> implements IMarcaAppS
     @PostConstruct
     public void init() {
         this.setServiceBase(marcaService);
+    }
+
+    @Override
+    public List<Marca> carregarConsulta(Marca exemplo) {
+        return this.marcaService.getByExample(exemplo);
     }
 
 }

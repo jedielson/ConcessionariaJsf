@@ -8,8 +8,8 @@ package com.jedi.concessionaria.web.controller;
 import java.io.Serializable;
 
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
+import javax.faces.view.ViewScoped;
 
 import com.jedi.concessionaria.application.interfaces.IMarcaAppService;
 import com.jedi.concessionaria.domain.entities.Marca;
@@ -22,7 +22,7 @@ import java.util.List;
  * @author Jedielson
  */
 @Named(value = "marcaController")
-@SessionScoped
+@ViewScoped
 public class MarcaController implements Serializable {
 
     /**
@@ -35,6 +35,8 @@ public class MarcaController implements Serializable {
     private Marca marca;
     private Marca filtro;
 
+    List<Marca> marcas;
+
     private String dialog;
 
     /**
@@ -43,12 +45,14 @@ public class MarcaController implements Serializable {
     public MarcaController() {
         this.marca = new Marca();
         this.filtro = new Marca();
+        this.marcas = new ArrayList<>();
         this.dialog = "cadastrar";
     }
 
     public void salvar() {
         try {
             this.marcaAppService.save(this.marca);
+            this.atualizaGrid();
             WebUtil.addInfoMessage(String.format("Marca %s salva com sucesso!", marca.getNome()));
             this.marca = new Marca();
         } catch (Exception e) {
@@ -59,12 +63,34 @@ public class MarcaController implements Serializable {
     public void remover(Marca marca) {
         try {
             this.marcaAppService.remove(marca);
+            this.atualizaGrid();
             WebUtil.addInfoMessage("Marca removida com sucesso");
         } catch (Exception ex) {
             WebUtil.addErrorMessage(String.format("Erro ao remover marca\n%s", ex.getCause().getMessage()));
         }
     }
 
+    public void atualizar() {
+        try {
+            this.marcaAppService.update(this.marca);
+            this.atualizaGrid();
+            WebUtil.addInfoMessage(String.format("Marca %s editada com sucesso!", marca.getNome()));
+            this.marca = new Marca();
+        } catch (Exception e) {
+            WebUtil.addWarningMessage(String.format("%s \n%s", e.getMessage(), e.getCause().getMessage()));
+        }
+    }
+
+    public void editar(Marca marca) {
+        this.marca = marca;
+        this.setDialog("editar");
+    }
+
+    public void atualizaGrid() {
+        this.marcas = this.marcaAppService.carregarConsulta(filtro);
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="Getter and Setter">
     public String getDialog() {
         return dialog;
     }
@@ -73,7 +99,6 @@ public class MarcaController implements Serializable {
         this.dialog = dialog;
     }
 
-    // <editor-fold defaultstate="collapsed" desc="Getter and Setter">
     public Marca getMarca() {
         return marca;
     }
@@ -91,14 +116,7 @@ public class MarcaController implements Serializable {
     }
 
     public List<Marca> getGridMarcas() {
-        try {
-            List<Marca> marcas = this.marcaAppService.findAll();
-            return marcas;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ArrayList<>();
-
+        return this.marcas;
     }
 
     // </editor-fold>

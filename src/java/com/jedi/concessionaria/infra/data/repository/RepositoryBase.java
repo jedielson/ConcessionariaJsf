@@ -5,6 +5,7 @@
  */
 package com.jedi.concessionaria.infra.data.repository;
 
+import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.repository.common.IRepositoryBase;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -61,7 +62,21 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
 
             entityManager.persist(entity);
         } catch (Exception ex) {
-            throw new Exception("Erro ao persistir um paciente.", ex);
+            throw new Exception("Erro ao persistir a entidade.", ex);
+        }
+    }
+    
+    /**
+     * {@inheritDoc }
+     * @throws java.lang.Exception Caso ocorra algum erro no momento de
+     * persistir os dados Um log é gravado neste momento
+     */
+    @Override
+    public void update(TEntity entity) throws Exception {
+        try{
+            this.entityManager.merge(entity);
+        }catch(Exception ex){
+            throw new Exception("Erro ao atualizar a entidade", ex);
         }
     }
 
@@ -79,7 +94,7 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
             return entity;
 
         } catch (Exception ex) {
-            throw new Exception("Erro ao efetuar merge de um paciente.", ex);            
+            throw new Exception("Erro ao efetuar merge da entidade.", ex);            
         }
     }
 
@@ -97,7 +112,7 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
             entityManager.remove(entity);
 
         } catch (Exception ex) {
-            throw new Exception("Erro ao remover um paciente.", ex);
+            throw new Exception("Erro ao remover a entidade.", ex);
         }
     }
 
@@ -115,7 +130,7 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
 
         } catch (Exception ex) {
 
-            throw new Exception("Erro ao remover um paciente.", ex);
+            throw new Exception("Erro ao remover a entidade.", ex);
         }
     }
 

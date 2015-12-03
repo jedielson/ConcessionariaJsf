@@ -55,6 +55,15 @@ public abstract class AppServiceBase<TEntity> implements IAppServiceBase<TEntity
     @Override
     public void save(TEntity entity) throws Exception {
         this.serviceBase.save(entity);
+    }    
+    
+    /**
+     * {@inheritDoc }
+     * @throws java.lang.Exception caso ocorra uma Excessão em {@link ServiceBase}
+     */
+    @Override
+    public void update(TEntity entity) throws Exception{
+        this.serviceBase.update(entity);
     }
 
     /**

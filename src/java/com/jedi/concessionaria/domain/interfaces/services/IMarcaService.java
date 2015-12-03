@@ -7,6 +7,7 @@ package com.jedi.concessionaria.domain.interfaces.services;
 
 import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.services.common.IServiceBase;
+import java.util.List;
 
 /**
  *
@@ -20,5 +21,7 @@ public interface IMarcaService extends IServiceBase<Marca> {
      * @return true caso exista uma marca com o nome passado
      */
     boolean existeComONome(String nome);
+    
+    List<Marca> getByExample(Marca exemplo);
 
 }

@@ -27,35 +27,46 @@
                     </h:panelGrid>
                     <f:facet name="footer">
                         <p:commandButton value="Pesquisar"
-                                         action="#{marcaController.getGridMarcas()}"                                         
-                                         update="@form"/>
+                                         action="#{marcaController.atualizaGrid()}"                                         
+                                         update="grid"
+                                         style="width: 120px;"
+                                         />
 
                         <p:commandButton value="Novo"
                                          actionListener="{marcaController.dialog('cadastrar')"
                                          oncomplete="PF('dialogWidget').show()"
                                          update=":dialog"
+                                         style="width: 120px;"
                                          />
 
                     </f:facet>                    
                 </p:panel>                
-                <p:panel id="grid">
-                    <p:dataTable value="#{marcaController.gridMarcas}"
+                <p:panel>
+                    <p:dataTable id="grid"
+                                 value="#{marcaController.gridMarcas}"
                                  var="marca"
                                  paginator="true"
                                  rows="5"                     
                                  paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                  rowsPerPageTemplate="5, 10, 15">                
-                        <p:column headerText="Nome">
+                        <p:column headerText="Nome" style="width: 25%">
                             <h:outputText value="#{marca.nome}"/>
                         </p:column>
                         <p:column headerText="Descrição">
                             <h:outputText value="#{marca.descricao}"/>
                         </p:column>                            
-                        <p:column>
+                        <p:column style="width: 10%">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             title="Editar"
+                                             action="#{marcaController.editar(marca)}"
+                                             oncomplete="PF('dialogWidget').show()"
+                                             update=":dialog"
+                                             immediate="true" >                                
+                            </p:commandButton>
                             <p:commandButton icon="ui-icon-trash"
-                                             title="Delete"
+                                             title="Deletar"
                                              action="#{marcaController.remover(marca)}"
-                                             update="@form"
+                                             update="grid"
                                              immediate="true" >
                                 <p:confirm header="Confirmação de Deleção" 
                                            message="Deseja excluir a marca #{marca.nome} ?" 

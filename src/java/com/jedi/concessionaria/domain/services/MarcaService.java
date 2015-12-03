@@ -14,6 +14,7 @@ import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.repository.IMarcaRepository;
 import com.jedi.concessionaria.domain.interfaces.services.IMarcaService;
 import com.jedi.concessionaria.domain.services.common.ServiceBase;
+import java.util.List;
 
 /**
  *
@@ -55,5 +56,9 @@ public class MarcaService extends ServiceBase<Marca> implements IMarcaService {
     @Override
     public boolean existeComONome(String nome) {
         return this.repository.getByName(nome) != null;
+    }
+    
+    public List<Marca> getByExample(Marca exemplo){
+        return this.repository.getByExample(exemplo);
     }
 }

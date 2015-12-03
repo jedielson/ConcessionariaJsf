@@ -59,6 +59,21 @@ public abstract class ServiceBase<TEntity> implements IServiceBase<TEntity> {
     public void save(TEntity entity) throws Exception {
         this.repositoryBase.save(entity);
     }
+    
+    
+    /**
+     * <p>
+     * Salva um {@link TEntity}.
+     * Caso o objeto seja transiente, salva,
+     * caso contrário, atualiza
+     * </p>
+     * @param entity um {@link TEntity}
+     * @throws Exception Retorno genérico de exception
+     */
+    @Override
+    public void update(TEntity entity) throws Exception{
+        this.repositoryBase.update(entity);
+    }
 
     /**
      * {@inheritDoc }

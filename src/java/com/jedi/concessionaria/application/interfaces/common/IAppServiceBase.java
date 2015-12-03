@@ -40,7 +40,18 @@ public interface IAppServiceBase<TEntity> {
      * @param entity um {@link TEntity}
      * @throws Exception Retorno genérico de exception
      */
-    public void save(TEntity entity) throws Exception;    
+    public void save(TEntity entity) throws Exception;
+    
+    /**
+     * <p>
+     * Salva um {@link TEntity}.
+     * Caso o objeto seja transiente, salva,
+     * caso contrário, atualiza
+     * </p>
+     * @param entity um {@link TEntity}
+     * @throws Exception Retorno genérico de exception
+     */
+    public void update(TEntity entity) throws Exception;
 
     /**
      * <p>

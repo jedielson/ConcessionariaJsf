@@ -7,11 +7,14 @@ package com.jedi.concessionaria.application.interfaces;
 
 import com.jedi.concessionaria.application.interfaces.common.IAppServiceBase;
 import com.jedi.concessionaria.domain.entities.Marca;
+import java.util.List;
 
 /**
  *
  * @author AS
  */
 public interface IMarcaAppService extends IAppServiceBase<Marca>{
+    
+    List<Marca> carregarConsulta(Marca exemplo);
     
 }
