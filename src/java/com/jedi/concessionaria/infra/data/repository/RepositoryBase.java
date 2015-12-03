@@ -40,7 +40,12 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
      */
     @Override
     public List<TEntity> findAll() {
-        return entityManager.createQuery(("FROM " + getTypeClass().getName()))
+        
+        String sql = ("FROM " + getTypeClass().getSimpleName());
+        
+        System.err.println("Sql gerada no find all: " + sql);
+        
+        return entityManager.createQuery(sql)
                 .getResultList();
     }
 
@@ -67,13 +72,14 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
      * persistir os dados Um log é gravado neste momento
      */
     @Override
-    public void merge(TEntity entity) throws Exception {
+    public TEntity merge(TEntity entity) throws Exception {
         try {
 
-            entityManager.merge(entity);
+            entity = entityManager.merge(entity);
+            return entity;
 
         } catch (Exception ex) {
-            throw new Exception("Erro ao efetuar merge de um paciente.", ex);
+            throw new Exception("Erro ao efetuar merge de um paciente.", ex);            
         }
     }
 
@@ -87,7 +93,7 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
     public void remove(TEntity entity) throws Exception {
         try {
 
-            this.merge(entity);
+            entity = this.merge(entity);
             entityManager.remove(entity);
 
         } catch (Exception ex) {
@@ -117,9 +123,9 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
      * Recupera o tipo de {@TEntity}
      * @return O tipo de {@TEntity}
      */
-    private Class<?> getTypeClass() {
+    private Class<?> getTypeClass() {        
         Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[1];
+                .getGenericSuperclass()).getActualTypeArguments()[0];
         return clazz;
     }
 

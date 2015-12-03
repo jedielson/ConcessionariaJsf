@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"      
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>        
+        <h:form id="formCadastro">
+            <p:panel header="Marca">
+                <h:panelGrid columns="2">
+                    <p:outputLabel for="textBoxNome" value="Nome:" />
+                    <p:inputText id="textBoxNome" 
+                                 value="#{marcaController.marca.nome}"
+                                 required="true" 
+                                 requiredMessage="O nome é obrigatório" 
+                                 style="width: 300px;"/>
+                    <br/>
+                    <p:message for="textBoxNome" />
+
+                    <p:outputLabel for="textAreaDescricao" value="Descrição:" />
+                    <p:inputTextarea id="textAreaDescricao"
+                                     value="#{marcaController.marca.descricao}" 
+                                     required="true"
+                                     requiredMessage="A descrição é obrigatória" 
+                                     style="width: 300px;" />
+                    <br/>
+                    <p:message for="textAreaDescricao" />
+                </h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton value="Cadastrar"
+                                     action="#{marcaController.salvar()}"
+                                     update="@form"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dialogWidget').hide()"
+                                     />
+                                     <!--onsuccess="PF('dialogWidget').hide();"-->
+                </f:facet>                    
+            </p:panel>
+        </h:form>
+    </ui:composition>
+</html>
+

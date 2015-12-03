@@ -42,9 +42,10 @@ public interface IRepositoryBase<TEntity> {
      * Coloca a {@link TEntity} abaixo do proxy
      * </p>
      * @param entity A entidade
+     * @return Uma entidade, que está no proxy
      * @throws Exception Retorno genérico de exception
      */
-    public void merge(TEntity entity) throws Exception;
+    public TEntity merge(TEntity entity) throws Exception;
 
     /**
      * <p>

@@ -23,14 +23,37 @@ import com.jedi.concessionaria.domain.services.common.ServiceBase;
 @Local(IMarcaService.class)
 public class MarcaService extends ServiceBase<Marca> implements IMarcaService {
 
-	@EJB
-	private IMarcaRepository repository;
+    @EJB
+    private IMarcaRepository repository;
 
-	public MarcaService() {
-	}
+    public MarcaService() {
+    }
 
-	@PostConstruct
-	public void init() {
-		this.setRepositoryBase(repository);
-	}
+    @PostConstruct
+    public void init() {
+        this.setRepositoryBase(repository);
+    }
+
+    @Override
+    public void save(Marca entity) throws Exception {
+        try {
+            if (!this.existeComONome(entity.getNome())) {
+                super.save(entity);
+                return;
+            }
+            
+            throw new Exception(String.format("O já existe uma marca com o nome %s", entity.getNome()));
+        } catch (Exception ex) {
+            throw new Exception("Não foi possível salvar a marca.", ex);
+        }
+    }
+
+    /**
+     *
+     * {@inheritDoc }
+     */
+    @Override
+    public boolean existeComONome(String nome) {
+        return this.repository.getByName(nome) != null;
+    }
 }

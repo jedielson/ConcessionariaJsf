@@ -15,5 +15,7 @@ import com.jedi.concessionaria.domain.interfaces.repository.common.IRepositoryBa
  * @author AS
  */
 public interface IMarcaRepository extends IRepositoryBase<Marca> {
+    
+    Marca getByName(String name);
 
 }

@@ -9,29 +9,76 @@
     <ui:composition template="../../templates/template_initial.xhtml">
         <ui:define name="content">
 
-            <h:form>                
+            <h:form id="form">                
                 <p:growl globalOnly="true" autoUpdate="true" />
-                <p:panel header="Cadastre a Marca dos Veículos">
-                    <h:panelGrid columns="3">
-                        <p:outputLabel for="textBoxNome" value="Nome:" />
-                        <p:inputText id="textBoxNome" value="#{marcaController.marca.nome}"
-                                     required="true" requiredMessage="O nome é obrigatório" />
-                        <p:message for="textBoxNome" />
+                <p:panel header="Marcas">
+                    <h:panelGrid columns="2">
+                        <p:outputLabel for="textBoxFiltroNome" value="Nome:" />
+                        <p:inputText id="textBoxFiltroNome" 
+                                     value="#{marcaController.filtro.nome}"
+                                     style="width: 300%;"/>
 
-                        <p:outputLabel for="textAreaDescricao" value="Descrição:" />
-                        <p:inputTextarea id="textAreaDescricao"
-                                         value="#{marcaController.marca.descricao}" required="true"
-                                         requiredMessage="O nome é obrigatório" cols="22" rows="5" />
-                        <p:message for="textAreaDescricao" />
+
+                        <p:outputLabel for="textAreaFiltroDescricao" value="Descrição:" />
+                        <p:inputTextarea id="textAreaFiltroDescricao"
+                                         value="#{marcaController.filtro.descricao}"                                         
+                                         rows="5"
+                                         style="width: 300%;"/>                        
                     </h:panelGrid>
                     <f:facet name="footer">
-                        <p:commandButton value="Cadastrar"
-                                         action="#{marcaController.salvar()}" update="@form" />
-                    </f:facet>
-                </p:panel>
-            </h:form>
-        </ui:define>
+                        <p:commandButton value="Pesquisar"
+                                         action="#{marcaController.getGridMarcas()}"                                         
+                                         update="@form"/>
 
+                        <p:commandButton value="Novo"
+                                         actionListener="{marcaController.dialog('cadastrar')"
+                                         oncomplete="PF('dialogWidget').show()"
+                                         update=":dialog"
+                                         />
+
+                    </f:facet>                    
+                </p:panel>                
+                <p:panel id="grid">
+                    <p:dataTable value="#{marcaController.gridMarcas}"
+                                 var="marca"
+                                 paginator="true"
+                                 rows="5"                     
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5, 10, 15">                
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{marca.nome}"/>
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{marca.descricao}"/>
+                        </p:column>                            
+                        <p:column>
+                            <p:commandButton icon="ui-icon-trash"
+                                             title="Delete"
+                                             action="#{marcaController.remover(marca)}"
+                                             update="@form"
+                                             immediate="true" >
+                                <p:confirm header="Confirmação de Deleção" 
+                                           message="Deseja excluir a marca #{marca.nome} ?" 
+                                           icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:confirmDialog global="true" height="100px" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+            <p:dialog id="dialog"
+                      widgetVar="dialogWidget"
+                      modal="true"
+                      draggable="false"
+                      resizable="false"
+                      closeOnEscape="true">
+                <p:ajax event="close" update=":form"/>                
+                <ui:include src="#{marcaController.dialog}.xhtml"/>
+            </p:dialog>
+        </ui:define>
     </ui:composition>
 </html>
 

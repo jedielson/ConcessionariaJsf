@@ -33,7 +33,7 @@ public class Carro implements Serializable {
     @Column(length = 8, nullable = false)
     private String placa;
     
-    @Column(length = 20, nullable = false)
+    @Column(length = 20, nullable = false)    
     private String chassi;
     
     @ManyToOne(optional = false)
