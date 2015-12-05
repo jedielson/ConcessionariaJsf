@@ -7,21 +7,14 @@ package com.jedi.concessionaria.application.interfaces;
 
 import com.jedi.concessionaria.application.common.IFilteredQueryableAppService;
 import com.jedi.concessionaria.application.interfaces.common.IAppServiceBase;
-import com.jedi.concessionaria.domain.entities.Marca;
-import java.util.List;
+import com.jedi.concessionaria.domain.entities.Modelo;
+import com.jedi.concessionaria.domain.filters.ModeloFilter;
 
 /**
  *
  * @author Jedielson Nakonieczni
  */
-public interface IMarcaAppService extends IAppServiceBase<Marca>, IFilteredQueryableAppService<Marca, Marca>{
-    
-    /**
-     * {@inheritDoc }
-     * @param exemplo O exemplo
-     * @return Uma {@link List} de {@link Marca}
-     */
-    @Override
-    List<Marca> carregarConsulta(Marca exemplo);
+public interface IModeloAppService extends IAppServiceBase<Modelo>,
+                                           IFilteredQueryableAppService<Modelo, ModeloFilter> {
     
 }

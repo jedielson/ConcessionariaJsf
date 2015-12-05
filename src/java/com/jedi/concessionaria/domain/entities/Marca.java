@@ -20,17 +20,17 @@ public class Marca implements Serializable {
 
     //<editor-fold defaultstate="collapsed" desc="Propriedades">
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long marcaId;
-    
+
     @Column(length = 30, nullable = false)
     private String nome;
-    
+
     @Column(length = 100, nullable = false)
     private String descricao;
-    
+
     @OneToMany(mappedBy = "marca")
     private List<Modelo> modelos;
     //</editor-fold>
@@ -88,7 +88,7 @@ public class Marca implements Serializable {
         hash = 71 * hash + Objects.hashCode(this.marcaId);
         return hash;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (obj == null) {
@@ -103,14 +103,12 @@ public class Marca implements Serializable {
         }
         return Objects.equals(this.nome, other.nome);
     }
-
     //</editor-fold>
-    
+
     //<editor-fold defaultstate="collapsed" desc="ToString()">
     @Override
     public String toString() {
         return "Marca{" + "marcaId=" + marcaId + ", nome=" + nome + ", descricao=" + descricao + '}';
     }
     //</editor-fold>
-
 }

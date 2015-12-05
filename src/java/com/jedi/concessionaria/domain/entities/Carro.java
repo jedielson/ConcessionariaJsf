@@ -36,6 +36,9 @@ public class Carro implements Serializable {
     @Column(length = 20, nullable = false)    
     private String chassi;
     
+    @Column(length = 7)
+    private String cor;
+    
     @ManyToOne(optional = false)
     @JoinColumn(name = "modeloId", nullable = false)
     private Modelo modelo;
@@ -45,12 +48,13 @@ public class Carro implements Serializable {
     public Carro() {
     }
 
-    public Carro(Integer carroId, String placa, String chassi, Modelo modelo) {
-        this.carroId = carroId;
+    public Carro(String placa, String chassi, String cor, Modelo modelo) {
         this.placa = placa;
         this.chassi = chassi;
+        this.cor = cor;
         this.modelo = modelo;
     }
+    
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Getter">
@@ -68,6 +72,10 @@ public class Carro implements Serializable {
 
     public Modelo getModelo() {
         return modelo;
+    }
+
+    public String getCor() {
+        return cor;
     }
     //</editor-fold>
 
@@ -87,13 +95,21 @@ public class Carro implements Serializable {
     public void setModelo(Modelo modelo) {
         this.modelo = modelo;
     }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
     //</editor-fold>
 
     //<editor-fold defaultstate="collapsed" desc="Equals">
+
     @Override
     public int hashCode() {
         int hash = 7;
-        hash = 23 * hash + Objects.hashCode(this.carroId);
+        hash = 83 * hash + Objects.hashCode(this.carroId);
+        hash = 83 * hash + Objects.hashCode(this.placa);
+        hash = 83 * hash + Objects.hashCode(this.chassi);
+        hash = 83 * hash + Objects.hashCode(this.cor);
         return hash;
     }
 
@@ -115,6 +131,9 @@ public class Carro implements Serializable {
         if (!Objects.equals(this.chassi, other.chassi)) {
             return false;
         }
+        if (!Objects.equals(this.cor, other.cor)) {
+            return false;
+        }
         return Objects.equals(this.modelo, other.modelo);
     }
     //</editor-fold>
@@ -122,7 +141,7 @@ public class Carro implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="ToString">
     @Override
     public String toString() {
-        return "Carro{" + "carroId=" + carroId + ", placa=" + placa + ", chassi=" + chassi + ", modelo=" + modelo + '}';
+        return "Carro{" + "carroId=" + carroId + ", placa=" + placa + ", chassi=" + chassi + ", cor=" + cor + ", modelo=" + modelo.getNome() + '}';
     }
     //</editor-fold>
 }

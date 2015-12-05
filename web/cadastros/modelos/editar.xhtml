@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition>
+        <h:form id="formCadastro">
+            <p:growl globalOnly="true" autoUpdate="true" />
+            <p:panel header="Modelos">
+                <h:panelGrid columns="3">
+
+                    <p:outputLabel id="labelMarca" for="comboBoxMarca" value="Marca:"/>
+                    <p:selectOneMenu id="comboBoxMarca" 
+                                     value="#{modeloController.modelo.marca}"
+                                     required="true"
+                                     requiredMessage="A marca é obrigatória."
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                        <f:selectItems value="#{modeloController.marcas}"
+                                       var="m"
+                                       itemValue="#{m}"
+                                       itemLabel="#{m.nome}"/>
+                    </p:selectOneMenu>
+                    <p:message for="comboBoxMarca"/>
+
+                    <p:outputLabel id="labelNome" for="textBoxName" value="Nome:"/>
+                    <p:inputText id="textBoxName" 
+                                 value="#{modeloController.modelo.nome}"
+                                 required="true"
+                                 requiredMessage="O nome é obrigatório"/>
+                    <p:message for="textBoxName"/>                        
+
+                    <p:outputLabel value="Portas"/>
+                    <p:selectOneRadio id="radioButtonPortas"
+                                      value="#{modeloController.modelo.modeloPortas}"
+                                      required="true"
+                                      requiredMessage="A quantidade de portas é obrigatória">
+                        <f:selectItems value="#{modeloController.modeloPortasValues}"/>                        
+                    </p:selectOneRadio>
+                    <p:message for="radioButtonPortas"/>
+
+                    <p:outputLabel value="Combustível"/>
+                    <p:selectOneRadio id="radioButtonCombustivel"
+                                      value="#{modeloController.modelo.combustivel}"
+                                      required="true"
+                                      requiredMessage="O Combustível é Obrigatório">
+                        <f:selectItems value="#{modeloController.modeloCombustivel}"/>                        
+                    </p:selectOneRadio>
+                    <p:message for="radioButtonCombustivel"/>
+
+                </h:panelGrid>
+                <f:facet name="footer">
+                    <p:commandButton action="#{modeloController.atualizar()}"
+                                     value="Salvar"
+                                     update="@form"
+                                     oncomplete="if (args &amp;&amp; !args.validationFailed) PF('dialogWidget').hide()"
+                                     />
+                </f:facet>
+            </p:panel>
+        </h:form>
+    </ui:composition>
+</html>
+

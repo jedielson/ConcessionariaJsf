@@ -35,6 +35,9 @@ public class MarcaAppService extends AppServiceBase<Marca> implements IMarcaAppS
         this.setServiceBase(marcaService);
     }
 
+    /**
+     * {@inheritDoc }
+     */
     @Override
     public List<Marca> carregarConsulta(Marca exemplo) {
         return this.marcaService.getByExample(exemplo);

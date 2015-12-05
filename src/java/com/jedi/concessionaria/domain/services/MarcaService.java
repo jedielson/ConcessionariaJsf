@@ -58,6 +58,11 @@ public class MarcaService extends ServiceBase<Marca> implements IMarcaService {
         return this.repository.getByName(nome) != null;
     }
     
+    /**
+     * {@inheritDoc }
+     * @return Uma {@link List} de {@link Marca}
+     */
+    @Override
     public List<Marca> getByExample(Marca exemplo){
         return this.repository.getByExample(exemplo);
     }

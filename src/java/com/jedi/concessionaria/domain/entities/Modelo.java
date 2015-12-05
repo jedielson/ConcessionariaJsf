@@ -5,7 +5,6 @@
  */
 package com.jedi.concessionaria.domain.entities;
 
-import com.jedi.concessionaria.domain.entities.enumerations.Cores;
 import com.jedi.concessionaria.domain.entities.enumerations.ModeloCombustivel;
 import com.jedi.concessionaria.domain.entities.enumerations.ModeloPortas;
 import java.io.Serializable;
@@ -44,10 +43,6 @@ public class Modelo implements Serializable {
     private ModeloPortas modeloPortas;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 15)
-    private Cores cor;
-
-    @Enumerated(EnumType.STRING)
     @Column(length = 15, nullable = false)
     private ModeloCombustivel combustivel;
 
@@ -63,10 +58,9 @@ public class Modelo implements Serializable {
     public Modelo() {
     }
 
-    public Modelo(String nome, ModeloPortas modeloPortas, Cores cor, ModeloCombustivel combustivel, Marca marca) {
+    public Modelo(String nome, ModeloPortas modeloPortas, ModeloCombustivel combustivel, Marca marca) {
         this.nome = nome;
         this.modeloPortas = modeloPortas;
-        this.cor = cor;
         this.combustivel = combustivel;
         this.marca = marca;
     }
@@ -83,10 +77,6 @@ public class Modelo implements Serializable {
 
     public ModeloPortas getModeloPortas() {
         return modeloPortas;
-    }
-
-    public Cores getCor() {
-        return cor;
     }
 
     public Marca getMarca() {
@@ -113,10 +103,6 @@ public class Modelo implements Serializable {
 
     public void setModeloPortas(ModeloPortas modeloPortas) {
         this.modeloPortas = modeloPortas;
-    }
-
-    public void setCor(Cores cor) {
-        this.cor = cor;
     }
 
     public void setMarca(Marca marca) {
@@ -157,10 +143,7 @@ public class Modelo implements Serializable {
         }
         if (this.modeloPortas != other.modeloPortas) {
             return false;
-        }
-        if (this.cor != other.cor) {
-            return false;
-        }
+        }        
         if (this.combustivel != other.combustivel) {
             return false;
         }
@@ -171,7 +154,7 @@ public class Modelo implements Serializable {
     //<editor-fold defaultstate="collapsed" desc="ToString">    
     @Override
     public String toString() {
-        return "Modelo{" + "modeloId=" + modeloId + ", nome=" + nome + ", modeloPortas=" + modeloPortas + ", cor=" + cor + ", combustivel=" + combustivel + ", marca=" + marca.getNome() + '}';
+        return "Modelo{" + "modeloId=" + modeloId + ", nome=" + nome + ", modeloPortas=" + modeloPortas + ", combustivel=" + combustivel + ", marca=" + marca.getNome() + '}';
     }
     //</editor-fold>
 

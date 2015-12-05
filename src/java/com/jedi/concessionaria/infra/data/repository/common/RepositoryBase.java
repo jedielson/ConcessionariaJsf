@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.jedi.concessionaria.infra.data.repository;
+package com.jedi.concessionaria.infra.data.repository.common;
 
-import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.repository.common.IRepositoryBase;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -41,11 +40,11 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
      */
     @Override
     public List<TEntity> findAll() {
-        
+
         String sql = ("FROM " + getTypeClass().getSimpleName());
-        
+
         System.err.println("Sql gerada no find all: " + sql);
-        
+
         return entityManager.createQuery(sql)
                 .getResultList();
     }
@@ -65,17 +64,18 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
             throw new Exception("Erro ao persistir a entidade.", ex);
         }
     }
-    
+
     /**
      * {@inheritDoc }
+     *
      * @throws java.lang.Exception Caso ocorra algum erro no momento de
      * persistir os dados Um log é gravado neste momento
      */
     @Override
     public void update(TEntity entity) throws Exception {
-        try{
+        try {
             this.entityManager.merge(entity);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw new Exception("Erro ao atualizar a entidade", ex);
         }
     }
@@ -94,7 +94,7 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
             return entity;
 
         } catch (Exception ex) {
-            throw new Exception("Erro ao efetuar merge da entidade.", ex);            
+            throw new Exception("Erro ao efetuar merge da entidade.", ex);
         }
     }
 
@@ -135,10 +135,13 @@ public abstract class RepositoryBase<TEntity> implements IRepositoryBase<TEntity
     }
 
     /**
-     * Recupera o tipo de {@TEntity}
-     * @return O tipo de {@TEntity}
+     * Recupera o tipo de {
+     *
+     * @TEntity}
+     * @return O tipo de {
+     * @TEntity}
      */
-    private Class<?> getTypeClass() {        
+    private Class<?> getTypeClass() {
         Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass()
                 .getGenericSuperclass()).getActualTypeArguments()[0];
         return clazz;

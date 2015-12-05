@@ -7,13 +7,14 @@ package com.jedi.concessionaria.domain.interfaces.services;
 
 import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.services.common.IServiceBase;
+import com.jedi.concessionaria.domain.services.common.IFilteredQueryService;
 import java.util.List;
 
 /**
  *
  * @author AS
  */
-public interface IMarcaService extends IServiceBase<Marca> {
+public interface IMarcaService extends IServiceBase<Marca>, IFilteredQueryService<Marca, Marca> {
     
     /**
      * Verifica se a marca já existe com o nome informado
@@ -22,6 +23,12 @@ public interface IMarcaService extends IServiceBase<Marca> {
      */
     boolean existeComONome(String nome);
     
+    /**
+     * {@inheritDoc }
+     * 
+     * @param exemplo Uma {@link Marca} a ser usada como filtro
+     */
+    @Override
     List<Marca> getByExample(Marca exemplo);
 
 }

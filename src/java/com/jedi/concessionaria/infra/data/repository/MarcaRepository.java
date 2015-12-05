@@ -2,6 +2,8 @@ package com.jedi.concessionaria.infra.data.repository;
 
 import com.jedi.concessionaria.domain.entities.Marca;
 import com.jedi.concessionaria.domain.interfaces.repository.IMarcaRepository;
+import com.jedi.concessionaria.domain.interfaces.repository.common.IFilteredQueryBuilder;
+import com.jedi.concessionaria.infra.data.repository.common.RepositoryBase;
 import java.util.List;
 
 import javax.ejb.Local;
@@ -17,7 +19,8 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 @Local(IMarcaRepository.class)
-public class MarcaRepository extends RepositoryBase<Marca> implements IMarcaRepository {
+public class MarcaRepository extends RepositoryBase<Marca> implements IMarcaRepository, 
+                                                                      IFilteredQueryBuilder<Marca, Marca>{
 
     public MarcaRepository() {
     }
@@ -40,6 +43,7 @@ public class MarcaRepository extends RepositoryBase<Marca> implements IMarcaRepo
     
     /**
      * {@inheritDoc }
+     * @param exemplo Uma {@link Marca} a ser utilizada como filtro
      */
     @Override
     public List<Marca> getByExample(Marca exemplo){
@@ -49,7 +53,12 @@ public class MarcaRepository extends RepositoryBase<Marca> implements IMarcaRepo
         return (List<Marca>) query.getResultList();
     }
 
-    private CriteriaQuery<Marca> createCriteria(Marca marca) {
+    /**
+     * {@inheritDoc }
+     * @param marca Uma marca
+     */
+    @Override
+    public CriteriaQuery<Marca> createCriteria(Marca marca) {
         CriteriaBuilder builder = this.getManager().getCriteriaBuilder();
         CriteriaQuery<Marca> query = builder.createQuery(Marca.class);
 
