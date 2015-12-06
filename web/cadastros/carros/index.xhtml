@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <ui:composition template="../../templates/template_initial.xhtml">
+        <ui:define name="content">
+             <h:form id="formIndex">
+                <p:growl globalOnly="true" autoUpdate="true" />
+                <p:panel header="Modelos">
+                    <h:panelGrid columns="3">
+
+                        <!--<p:outputLabel id="labelMarca" for="comboBoxMarca" value="Marca:"/>
+                        <p:selectOneMenu id="comboBoxMarca" 
+                                         value="#{modeloController.filtro.marca}"                                         
+                                         converter="omnifaces.SelectItemsConverter">
+                            <f:selectItem itemLabel="Selecione" noSelectionOption="true"/>
+                            <f:selectItems value="#{modeloController.marcas}"
+                                           var="m"
+                                           itemValue="#{m}"
+                                           itemLabel="#{m.nome}"/>
+                        </p:selectOneMenu>
+                        <p:message for="comboBoxMarca"/>
+
+                        <p:outputLabel id="labelNome" for="textBoxName" value="Nome:"/>
+                        <p:inputText id="textBoxName" 
+                                     value="#{modeloController.filtro.nome}"                                     
+                                     />
+                        <p:message for="textBoxName"/>                        
+
+                        <p:outputLabel value="Portas:"/>
+                        <p:selectManyCheckbox id="listCheckBoxPortas"
+                                              value="#{modeloController.filtro.portas}" 
+                                              converter="omnifaces.GenericEnumConverter"
+                                              >
+                            <f:selectItems value="#{modeloController.modeloPortasValues}"/>                        
+                        </p:selectManyCheckbox>
+                        <p:message for="listCheckBoxPortas"/>
+
+                        <p:outputLabel value="Combustível:"/>
+                        <p:selectManyCheckbox id="listCheckBoxCombustivel"
+                                              value="#{modeloController.filtro.combustiveis}" 
+                                              converter="omnifaces.GenericEnumConverter"
+                                              >
+                            <f:selectItems value="#{modeloController.modeloCombustivel}"/>                        
+                        </p:selectManyCheckbox>
+                        <p:message for="listCheckBoxCombustivel"/>    -->                    
+
+                    </h:panelGrid>
+                    <f:facet name="footer">
+                        <p:commandButton value="Pesquisar"
+                                         action="#{carroController.atualizaGrid()}"                                         
+                                         update="grid"
+                                         style="width: 120px;"
+                                         />
+
+                        <p:commandButton value="Novo"
+                                         actionListener="{modeloController.dialog('cadastrar')"
+                                         oncomplete="PF('dialogWidget').show()"
+                                         update=":dialog"
+                                         style="width: 120px;"
+                                         />
+                    </f:facet>
+                </p:panel>
+                <p:panel>
+                    <p:dataTable id="grid"
+                                 value="#{carroController.gridCarros}"
+                                 var="carro"
+                                 paginator="true"
+                                 rows="5"                     
+                                 paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                 rowsPerPageTemplate="5, 10, 15">                
+                        <p:column headerText="Marca">
+                            <h:outputText value="#{carro.modelo.marca.nome}"/>
+                        </p:column>
+                        <p:column headerText="Modelo" style="width: 25%">
+                            <h:outputText value="#{carro.modelo.nome}"/>
+                        </p:column>
+                        <p:column headerText="Placa" style="width: 10%">
+                            <h:outputText value="#{carro.placa}"/>
+                        </p:column>
+                        <p:column headerText="Chassi">
+                            <h:outputText value="#{carro.chassi}"/>
+                        </p:column>
+                        <p:column headerText="Cor" style="width: 5%">
+                            <div style="background-color: ##{carro.cor}; width: 20px; height: 20px;">
+                                
+                            </div>
+                        </p:column>
+                        <p:column style="width: 10%">
+                            <p:commandButton icon="ui-icon-pencil"
+                                             title="Editar"
+                                             action="#{carroController.editar(carro)}"
+                                             oncomplete="PF('dialogWidget').show()"
+                                             update=":dialog"
+                                             immediate="true" >                                
+                            </p:commandButton>
+                            <p:commandButton icon="ui-icon-trash"
+                                             title="Deletar"
+                                             action="#{carroController.remover(carro)}"
+                                             update="grid"
+                                             immediate="true" >
+                                <p:confirm header="Confirmação de Deleção" 
+                                           message="Deseja excluir o carro #{carro.placa} ?" 
+                                           icon="ui-icon-alert" />
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </p:panel>
+                <p:confirmDialog global="true" height="100px" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>
+            </h:form>
+            <p:dialog id="dialog"
+                      widgetVar="dialogWidget"
+                      modal="true"
+                      draggable="false"
+                      resizable="false"
+                      closeOnEscape="true">
+                <p:ajax event="close" update=":formIndex"/>                
+                <ui:include src="#{carroController.dialog}.xhtml"/>
+            </p:dialog>
+        </ui:define>
+    </ui:composition>
+</html>
+

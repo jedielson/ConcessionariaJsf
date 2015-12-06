@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.jedi.concessionaria.infra.data.repository;
 
 import com.jedi.concessionaria.domain.entities.Modelo;
@@ -27,12 +26,11 @@ import javax.persistence.criteria.Root;
  */
 @Stateless
 @Local(IModeloRepository.class)
-public class ModeloRepository extends RepositoryBase<Modelo> 
-                                implements IModeloRepository,
-                                            IFilteredQueryBuilder<Modelo, ModeloFilter>{
-    private Root<Modelo> Modelo;
+public class ModeloRepository extends RepositoryBase<Modelo>
+                            implements IModeloRepository,
+                                        IFilteredQueryBuilder<Modelo, ModeloFilter> {
 
-    public ModeloRepository(){
+    public ModeloRepository() {
     }
 
     /**
@@ -42,8 +40,8 @@ public class ModeloRepository extends RepositoryBase<Modelo>
     public List<Modelo> getByExample(ModeloFilter filter) {
         CriteriaQuery<Modelo> criteriaQuery = this.createCriteria(filter);
         Query query = this.getManager().createQuery(criteriaQuery);
-        
-        return (List<Modelo>)query.getResultList();        
+
+        return (List<Modelo>) query.getResultList();
     }
 
     /**
@@ -51,37 +49,37 @@ public class ModeloRepository extends RepositoryBase<Modelo>
      */
     @Override
     public CriteriaQuery<Modelo> createCriteria(ModeloFilter filter) {
-                CriteriaBuilder builder = this.getManager().getCriteriaBuilder();
+        CriteriaBuilder builder = this.getManager().getCriteriaBuilder();
         CriteriaQuery<Modelo> query = builder.createQuery(Modelo.class);
 
         Root<Modelo> from = query.from(Modelo.class);
         List<Predicate> predicados = new ArrayList<>();
-        
-        if(filter == null){
+
+        if (filter == null) {
             return query;
         }
-        
-        if(filter.getMarca() != null && filter.getMarca().getMarcaId() != null && filter.getMarca().getMarcaId() > 0){            
+
+        if (filter.getMarca() != null && filter.getMarca().getMarcaId() != null && filter.getMarca().getMarcaId() > 0) {
             predicados.add(builder.equal(from.get("marca"), filter.getMarca().getMarcaId()));
         }
-        
-        if(filter.getNome() != null && !filter.getNome().isEmpty()){            
-            predicados.add(builder.like(from.get("nome"),"%" + filter.getNome() + "%"));
+
+        if (filter.getNome() != null && !filter.getNome().isEmpty()) {
+            predicados.add(builder.like(from.get("nome"), "%" + filter.getNome() + "%"));
         }
-        
-        if(filter.getPortas() != null && !filter.getPortas().isEmpty()){
+
+        if (filter.getPortas() != null && !filter.getPortas().isEmpty()) {
             predicados.add(from.get("modeloPortas").in(filter.getPortas()));
         }
-        
-        if(filter.getCombustiveis() != null && !filter.getCombustiveis().isEmpty()){
+
+        if (filter.getCombustiveis() != null && !filter.getCombustiveis().isEmpty()) {
             predicados.add(from.get("combustivel").in(filter.getCombustiveis()));
         }
-                
-        if(!predicados.isEmpty()){
+
+        if (!predicados.isEmpty()) {
             query.where(builder.and(predicados.toArray(new Predicate[]{})));
         }
-        
+
         return query;
     }
-    
+
 }
